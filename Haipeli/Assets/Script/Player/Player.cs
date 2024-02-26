@@ -38,6 +38,10 @@ public class Player : MonoBehaviour
         controls.Enable();
     }
 
+    private void OnDisable(){
+        controls.Disable();
+    }
+
     private void FixedUpdate(){
         Move(); 
     }
