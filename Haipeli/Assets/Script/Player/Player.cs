@@ -15,6 +15,9 @@ public class Player : MonoBehaviour
     // Tähän tallennetaan nappien painallukset x ja y akselilla
 
     private Vector2 moveInput;
+
+    // Tämä on pelaajan aseen paikka suunta ja skaalaus
+    public Transform gunTransform;
     
     // Tämä suoritetaan ennen pelin käynnistystä
     private void Awake()
@@ -31,7 +34,8 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Aim();
+        Shoot();
     }
 
     private void OnEnable(){
@@ -50,6 +54,19 @@ public class Player : MonoBehaviour
         moveInput = controls.Player.Move.ReadValue<Vector2>();
         Vector2 movement = new Vector2(moveInput.x, moveInput.y) * moveSpeed * Time.fixedDeltaTime;
         body.MovePosition(body.position + movement);
+    }
+
+    private void Shoot(){
+        if(controls.Player.Shoot.triggered){
+            Debug.Log("Shoot");
+            GameObject bullet = BulletPoolManager.Instance.GetBullet();
+            bullet.transform.position = gunTransform.position;
+            bullet.transform.rotation = gunTransform.rotation;
+        }
+    }
+
+    private void Aim(){
+        
     }
 
 }

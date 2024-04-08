@@ -10,9 +10,10 @@ public class BulletPoolManager : MonoBehaviour
     //Tämä on ammuksen aihio
     public GameObject bulletPrefab;
 
-    //Tämä ammusten määrä
+    //Tämä on ammusten määrä
     public int bulletAmount = 20;
 
+    //Tämä on ammusten pooli
     private Queue<GameObject> bulletPool = new Queue<GameObject>();
 
     // Start is called before the first frame update
@@ -25,5 +26,36 @@ public class BulletPoolManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    void Awake()
+    {
+        //Tämä osoittaa tähän peliobjektiin
+        Instance = this;
+        InitializePool();
+
+    }
+
+    private void InitializePool(){
+        //Tämä luo ammusjonon
+        for (int i = 0; i < bulletAmount; i++)
+        {
+            GameObject bullet = Instantiate(bulletPrefab);
+            bullet.SetActive(false);
+            bulletPool.Enqueue(bullet);
+        }
+    }
+
+    public GameObject GetBullet(){
+        //Tämä ottaa ammuksen jonosta
+        if(bulletPool.Count > 0){
+            GameObject bullet = bulletPool.Dequeue();
+            bullet.SetActive(true);
+            return bullet;
+        }
+        else{
+            //GameObject bullet = Instantiate(bulletPrefab);
+            return null;
+        }
     }
 }
