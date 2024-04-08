@@ -16,6 +16,8 @@ public class Player : MonoBehaviour
 
     private Vector2 moveInput;
 
+    private Vector2 aimInput;
+
     // Tämä on pelaajan aseen paikka suunta ja skaalaus
     public Transform gunTransform;
     
@@ -66,7 +68,16 @@ public class Player : MonoBehaviour
     }
 
     private void Aim(){
-        
+        aimInput = controls.Player.Aim.ReadValue<Vector2>();
+        //Tarkistetaan että pelaaja on antanut inputtia
+        if(aimInput.sqrMagnitude > 0.1f){
+            //Asetetaan pelaajan aseen suunta
+            gunTransform.up = aimInput;
+            //Lasketaan kulma johon pelaajan ase osoittaa
+            float angle = (Mathf.Atan2(aimInput.x, -aimInput.y)) * Mathf.Rad2Deg;
+            //Asetetaan pelaajan aseen kulma
+            gunTransform.rotation = Quaternion.Euler(0, 0, angle);
+        }
     }
 
 }

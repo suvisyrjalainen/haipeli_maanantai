@@ -401,3 +401,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   body: {fileID: 2041558117}
+  gunTransform: {fileID: 1603373744}
