@@ -71,11 +71,21 @@ public class Player : MonoBehaviour
         aimInput = controls.Player.Aim.ReadValue<Vector2>();
         //Tarkistetaan että pelaaja on antanut inputtia
         if(aimInput.sqrMagnitude > 0.1f){
-            //Asetetaan pelaajan aseen suunta
+            //Tässä rivissä asetetaan aseen suunta (gunTransform.up) 
+            //pelaajan antaman inputin mukaiseksi. 
+            //Tämä tarkoittaa, että ase osoittaa kohti sitä suuntaa, 
+            //johon pelaaja haluaa ampua. Ammus kulkee koodissamme miinussuuntaan
+            //ja siksi suunta up on tässä vähän hämäävä.
             gunTransform.up = aimInput;
-            //Lasketaan kulma johon pelaajan ase osoittaa
+            //Lasketaan kulma johon pelaajan ase osoittaa. 
+            //Mathf.Atan2-funktio laskee kulman kahden pisteen välillä, ja se ottaa 
+            //argumentteina x- ja y-koordinaatit. Mathf.Rad2Deg 
+            //muuntaa tuloksen radiaaneista asteiksi.
             float angle = (Mathf.Atan2(aimInput.x, -aimInput.y)) * Mathf.Rad2Deg;
-            //Asetetaan pelaajan aseen kulma
+            //Tässä asetetaan aseen kulma (gunTransform.rotation) 
+            //lasketun kulman mukaiseksi. Quaternion.Euler luo rotaatioquaternionin 
+            //annetuilla kulma-arvoilla. Aseen kulmaa päivitetään asettamalla 
+            //Z-akselin kulma (angle). Tämä saa aseen kääntymään oikeaan suuntaan.
             gunTransform.rotation = Quaternion.Euler(0, 0, angle);
         }
     }
