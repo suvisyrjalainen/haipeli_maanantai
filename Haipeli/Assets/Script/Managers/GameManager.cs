@@ -39,4 +39,9 @@ public class GameManager : MonoBehaviour
     {
         
     }
+
+    public bool IsGamePlay()
+    {
+        return currentGameState == gameStates.Gameplay;
+    }
 }

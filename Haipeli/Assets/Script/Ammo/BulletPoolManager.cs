@@ -58,4 +58,11 @@ public class BulletPoolManager : MonoBehaviour
             return null;
         }
     }
+    
+    //Tämä palauttaa ammuksen jonoon
+    public void ReturnBullet(GameObject bullet)
+    {
+        bullet.SetActive(false);
+        bulletPool.Enqueue(bullet);
+    }
 }
