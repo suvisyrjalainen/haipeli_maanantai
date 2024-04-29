@@ -49,6 +49,10 @@ public class Player : MonoBehaviour
     }
 
     private void FixedUpdate(){
+        if(!GameManager.instance.IsGamePlay())
+        {
+            return;
+        }
         Move(); 
     }
 
