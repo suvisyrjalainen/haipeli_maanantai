@@ -30,12 +30,16 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        GameManager.instance.playerController = this;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(!GameManager.instance.IsGamePlay())
+        {
+            return;
+        }
         Aim();
         Shoot();
     }
